@@ -6,19 +6,32 @@ import { HiOutlineUserCircle } from "react-icons/hi";
 import { FaShoppingCart } from "react-icons/fa";
 
 const Header = () => {
-    
     const [showMenu, setShowMenu] = useState(false);
     const handleShowMenu = () => {
-        setShowMenu(prev => !prev)
-    }
+        setShowMenu((prev) => !prev);
+    };
 
     return (
         <header className="fixed shadow-md w-full h-16 px-2 md:px-4 z-50 bg-white">
             {/* desktop */}
             <div className="flex items-center h-full justify-between">
                 <Link to={""}>
-                    <div className="h-10">
-                        <img src={logo} className="h-full" alt="" />
+                    <div className="flex items-center h-10">
+                        <img
+                            src="https://tse3.mm.bing.net/th?id=OIP.Tl4k-UvN9suTKoRVRMvJ4wHaD_&pid=Api&P=0&h=180"
+                            className="h-full w-auto"
+                            alt=""
+                        />
+                        <p
+                            className="mr-5 font-serif font-extrabold"
+                            style={{
+                                marginLeft: "10px",
+                                fontSize: "30px",
+                                fontFamily: "cursive",
+                            }}
+                        >
+                            YumRunner<span style={{ fontSize: "24px" }}>😋</span>
+                        </p>
                     </div>
                 </Link>
 
@@ -32,8 +45,7 @@ const Header = () => {
                     {/* <div className='text-2xl text-slate-600 relative'>
                         <BsCartFill />
                         <div className='absolute -top-1 -right-1 text-white bg-red-500 h-4 w-4 rounded-full m-0 p-0 text-sm text-center'>1</div>
-                        </div> */
-                    }
+                        </div> */}
                     <div className="text-2xl text-slate-600 relative cursor-pointer">
                         <FaShoppingCart />
                         <span className="absolute -top-3 -right-3 bg-red-600 rounded-full text-white h-5 w-5 text-sm text-center">
@@ -46,9 +58,19 @@ const Header = () => {
                             <HiOutlineUserCircle />
                         </div>
                         {showMenu && (
-                            <div className="absolute right-2 bg-white py-2 px-2 drop-shadow-md flex flex-col">
-                                <Link to={"newproduct"} className="whitespace-nowrap cursor-pointer">New product</Link>
-                                <Link to={"login"} className="whitespace-nowrap cursor-pointer">Login</Link>
+                            <div className="absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl">
+                                <Link
+                                    to={"newproduct"}
+                                    className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                                >
+                                    New product
+                                </Link>
+                                <Link
+                                    to={"login"}
+                                    className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                                >
+                                    Login
+                                </Link>
                             </div>
                         )}
                     </div>

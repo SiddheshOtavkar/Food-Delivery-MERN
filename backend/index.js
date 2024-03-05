@@ -5,7 +5,6 @@ const colors = require("colors");
 const app = express();
 const dotenv = require("dotenv");
 const connectDB = require("./config/db");
-// const userModel = require("./model/userModel");
 const authRoutes = require("./routes/authRoute");
 
 app.use(cors());
@@ -24,11 +23,8 @@ app.get("/", (req, res) => {
 });
 
 // routes
+// app.use("/auth", authRoutes);
 app.use("/auth", authRoutes);
-
-// app.post("/signup", (req, res) => {
-//     console.log(req.body);
-// });
 
 app.listen(PORT, () => {
     console.log(`Server Running on ${process.env.DEV_MODE} mode on ${PORT}`.bgWhite.black);

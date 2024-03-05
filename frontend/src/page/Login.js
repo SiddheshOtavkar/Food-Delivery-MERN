@@ -66,7 +66,7 @@ const Login = () => {
                 }, 1000);
             }
         } else {
-            toast("Please enter the required fields");
+            toast("Please enter the required fields: ");
         }
     };
 

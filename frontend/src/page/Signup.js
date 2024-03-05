@@ -53,11 +53,12 @@ const Signup = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         const { firstName, lastName, email, password, confirmPassword, image } = data;
         if (firstName && lastName && email && password && confirmPassword) {
             if (password === confirmPassword) {
 
-                // const fetchData = await fetch(`${process.env.REACT_APP_API}/auth/signup`, {
+                // const fetchData = await fetch(`${process.env.REACT_APP_API}/auth/register`, {
                 //     method: "POST",
                 //     headers: {
                 //         "content-type": "application/json"
@@ -67,11 +68,16 @@ const Signup = () => {
 
                 // const dataRes = await fetchData.json();
                 // console.log(dataRes);
-                // toast(dataRes.message);
-                // navigate("/login");
+
+                // if (dataRes.data && dataRes.data.success) {
+                //     toast.success(dataRes.data.message);
+                //     navigate("/login");
+                // } else {
+                //     toast.error(dataRes && dataRes.message);
+                // }
 
                 const res = await axios.post(
-                    `${process.env.REACT_APP_API}/auth/signup`,
+                    `${process.env.REACT_APP_API}/auth/register`,
                     {
                         firstName,
                         lastName,
@@ -184,6 +190,7 @@ const Signup = () => {
                         Sign up
                     </button>
                 </form>
+
                 <p className="text-left text-sm mt-2">
                     Already have account ?{" "}
                     <Link to={"/login"} className="text-red-500 underline">

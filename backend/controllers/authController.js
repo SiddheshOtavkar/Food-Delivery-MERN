@@ -8,6 +8,7 @@ const hashPassword = async (password) => {
         return hashedPassword;
     } catch (error) {
         console.log(error);
+        throw error
     }
 };
 
@@ -74,6 +75,7 @@ const registerController = async (req, res) => {
     }
 };
 
+
 const loginController = async (req, res) => {
     // console.log(req.body);
     try {
@@ -108,7 +110,7 @@ const loginController = async (req, res) => {
         res.status(200).send({
             success: true,
             message: "Login Successfully",
-            user : {
+            user: {
                 _id: user._id,
                 firstName: user.firstName,
                 lastName: user.lastName,
@@ -118,7 +120,7 @@ const loginController = async (req, res) => {
             alert: true
         });
 
-    } 
+    }
     catch (error) {
         // console.log(error);
         res.status(500).send({
@@ -129,10 +131,7 @@ const loginController = async (req, res) => {
     }
 };
 
-module.exports = registerController;
-module.exports = loginController;
-
-// module.exports = {
-//     registerController,
-//     loginController
-// }; 
+module.exports = {
+    registerController,
+    loginController
+}; 
