@@ -1,22 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { BiShow, BiHide } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import loginSignupImage from "../assest/login-animation.gif";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { loginRedux } from "../redux/userSlice";
 
 const Login = () => {
-
     const [showPassword, setShowPassword] = useState(false);
     const [data, setData] = useState({
         email: "",
         password: "",
     });
     const navigate = useNavigate();
-    // const userData = useSelector((state) => state);
 
-    // const dispatch = useDispatch();
+    const userData = useSelector(state => state.user);
+    // console.log(userData);
+
+    const dispatch = useDispatch();
 
     const handleShowPassword = () => {
         setShowPassword((preve) => !preve);
@@ -32,15 +35,18 @@ const Login = () => {
         });
     };
 
+    useEffect(() => {
+        console.log(userData);
+    }, [userData]);
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const { email, password } = data;
         if (email && password) {
-
             // const res = await axios.post(`${process.env.REACT_APP_API}/auth/login`, {
             //     email,
             //     password,
-            // }); 
+            // });
             // if (res && res.data.success) {
             //     toast.success(res.data && res.data.message);
             //     navigate("/");
@@ -51,20 +57,24 @@ const Login = () => {
             const fetchData = await fetch(`${process.env.REACT_APP_API}/auth/login`, {
                 method: "POST",
                 headers: {
-                    "content-type": "application/json"
+                    "content-type": "application/json",
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify(data),
             });
 
             const dataRes = await fetchData.json();
             console.log(dataRes);
-            toast.success(dataRes.message);
+            toast.success(dataRes.user.firstName + " " + dataRes.message);
 
-            if(dataRes.alert) {
+            if (dataRes.alert) {
+                dispatch(loginRedux(dataRes));
                 setTimeout(() => {
                     navigate("/");
                 }, 1000);
             }
+
+            console.log(userData);
+
         } else {
             toast("Please enter the required fields: ");
         }
