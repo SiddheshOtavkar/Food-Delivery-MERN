@@ -4,12 +4,26 @@ import { Link } from "react-router-dom";
 import { HiOutlineUserCircle } from "react-icons/hi";
 // import { BsCartFill } from "react-icons/bs";
 import { FaShoppingCart } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutRedux } from "../redux/userSlice";
+import { toast } from 'react-hot-toast';
 
 const Header = () => {
     const [showMenu, setShowMenu] = useState(false);
+    const userData = useSelector((state) => state.user);
+    const dispatch = useDispatch();
+
+    console.log(userData);
+
     const handleShowMenu = () => {
         setShowMenu((prev) => !prev);
     };
+
+    const handleLogout = () => {
+        dispatch(logoutRedux());
+        toast.success("Logout Successfull!!");
+        console.log(userData._id);
+    }
 
     return (
         <header className="fixed shadow-md w-full h-16 px-2 md:px-4 z-50 bg-white">
@@ -54,8 +68,12 @@ const Header = () => {
                     </div>
 
                     <div className="text-slate-600" onClick={handleShowMenu}>
-                        <div className="text-3xl cursor-pointer">
-                            <HiOutlineUserCircle />
+                        <div className="text-3xl cursor-pointer w-10 h-10 rounded-full overflow-hidden drop-shadow-md">
+                            {userData.image ? (
+                                <img className="h-full w-full" src={userData.image} alt="" />
+                            ) : (
+                                <HiOutlineUserCircle />
+                            )}
                         </div>
                         {showMenu && (
                             <div className="absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl">
@@ -65,12 +83,20 @@ const Header = () => {
                                 >
                                     New product
                                 </Link>
-                                <Link
-                                    to={"login"}
-                                    className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
-                                >
-                                    Login
-                                </Link>
+                                {userData._id !== "" ? (
+                                    <p
+                                        onClick={handleLogout}
+                                        className="block px-4 py-2 text-gray-800 hover:bg-gray-100">
+                                        Logout
+                                    </p>
+                                ) : (
+                                    <Link
+                                        to={"login"}
+                                        className="block px-4 py-2 text-gray-800 hover:bg-gray-100"
+                                    >
+                                        Login
+                                    </Link>
+                                )}
                             </div>
                         )}
                     </div>
